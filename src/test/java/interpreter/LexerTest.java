@@ -10,11 +10,7 @@ import java.util.ArrayList;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-/**
- * Unit test for simple App.
- */
 public class LexerTest {
-
 
   @Test
   @DisplayName("Token Type of '=+(){},;'")
