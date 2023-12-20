@@ -10,11 +10,11 @@ public class Token {
   }
 
   public TokenTypes getTokenType() {
-    return this.tokenType;
+    return tokenType;
   }
 
   public String getLiteral() {
-    return this.literal;
+    return literal;
   }
 
   public void setTokenType(TokenTypes tokenType) {
@@ -25,4 +25,3 @@ public class Token {
     this.literal = literal;
   }
 }
-

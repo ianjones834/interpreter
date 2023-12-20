@@ -15,15 +15,53 @@ public class LexerTest {
   @Test
   @DisplayName("Token Type of '=+(){},;'")
   void tokenTypeEquals() {
-    String input = "=+(){},;";
+    String input = """
+    let five = 5;
+    let ten = 10;
+
+    let add = fn(x,y) {
+      x + y;
+    };
+
+    let result = add(five, ten);
+  """;
+
     Token[] expectedTokens = {
+      new Token(TokenTypes.LET, "let"),
+      new Token(TokenTypes.IDENT, "five"),
       new Token(TokenTypes.ASSIGN, "="),
-      new Token(TokenTypes.PLUS, "+"),
+      new Token(TokenTypes.INT, "5"),
+      new Token(TokenTypes.SEMICOLON, ";"),
+      new Token(TokenTypes.LET, "let"),
+      new Token(TokenTypes.IDENT, "ten"),
+      new Token(TokenTypes.ASSIGN, "="),
+      new Token(TokenTypes.INT, "10"),
+      new Token(TokenTypes.SEMICOLON, ";"),
+      new Token(TokenTypes.LET, "let"),
+      new Token(TokenTypes.IDENT, "add"),
+      new Token(TokenTypes.ASSIGN, "="),
+      new Token(TokenTypes.FUNCTION, "fn"),
       new Token(TokenTypes.LPAREN, "("),
-      new Token(TokenTypes.RPAREN, ")"),
-      new Token(TokenTypes.LBRACE, "["),
-      new Token(TokenTypes.RBRACE, "]"),
+      new Token(TokenTypes.IDENT, "x"),
       new Token(TokenTypes.COMMA, ","),
+      new Token(TokenTypes.IDENT, "y"),
+      new Token(TokenTypes.RPAREN, ")"),
+      new Token(TokenTypes.LBRACE, "{"),
+      new Token(TokenTypes.IDENT, "x"),
+      new Token(TokenTypes.PLUS, "+"),
+      new Token(TokenTypes.IDENT, "y"),
+      new Token(TokenTypes.SEMICOLON, ";"),
+      new Token(TokenTypes.RBRACE, "}"),
+      new Token(TokenTypes.SEMICOLON, ";"),
+      new Token(TokenTypes.LET, "let"),
+      new Token(TokenTypes.IDENT, "result"),
+      new Token(TokenTypes.ASSIGN, "="),
+      new Token(TokenTypes.IDENT, "add"),
+      new Token(TokenTypes.LPAREN, "("),
+      new Token(TokenTypes.IDENT, "five"),
+      new Token(TokenTypes.COMMA, ","),
+      new Token(TokenTypes.IDENT, "ten"),
+      new Token(TokenTypes.RPAREN, ")"),
       new Token(TokenTypes.SEMICOLON, ";"),
       new Token(TokenTypes.EOF, ""),
     };
@@ -45,15 +83,52 @@ public class LexerTest {
   @Test
   @DisplayName("Token Literals of '=+(){},;'")
   void tokenLiteralsEquals() {
-    String input = "=+(){},;";
+    String input = """
+    let five = 5;
+    let ten = 10;
+
+    let add = fn(x,y) {
+      x + y;
+    };
+
+    let result = add(five, ten);""";
+
     Token[] expectedTokens = {
+      new Token(TokenTypes.LET, "let"),
+      new Token(TokenTypes.IDENT, "five"),
       new Token(TokenTypes.ASSIGN, "="),
-      new Token(TokenTypes.PLUS, "+"),
+      new Token(TokenTypes.INT, "5"),
+      new Token(TokenTypes.SEMICOLON, ";"),
+      new Token(TokenTypes.LET, "let"),
+      new Token(TokenTypes.IDENT, "ten"),
+      new Token(TokenTypes.ASSIGN, "="),
+      new Token(TokenTypes.INT, "10"),
+      new Token(TokenTypes.SEMICOLON, ";"),
+      new Token(TokenTypes.LET, "let"),
+      new Token(TokenTypes.IDENT, "add"),
+      new Token(TokenTypes.ASSIGN, "="),
+      new Token(TokenTypes.FUNCTION, "fn"),
       new Token(TokenTypes.LPAREN, "("),
+      new Token(TokenTypes.IDENT, "x"),
+      new Token(TokenTypes.COMMA, ","),
+      new Token(TokenTypes.IDENT, "y"),
       new Token(TokenTypes.RPAREN, ")"),
       new Token(TokenTypes.LBRACE, "{"),
+      new Token(TokenTypes.IDENT, "x"),
+      new Token(TokenTypes.PLUS, "+"),
+      new Token(TokenTypes.IDENT, "y"),
+      new Token(TokenTypes.SEMICOLON, ";"),
       new Token(TokenTypes.RBRACE, "}"),
+      new Token(TokenTypes.SEMICOLON, ";"),
+      new Token(TokenTypes.LET, "let"),
+      new Token(TokenTypes.IDENT, "result"),
+      new Token(TokenTypes.ASSIGN, "="),
+      new Token(TokenTypes.IDENT, "add"),
+      new Token(TokenTypes.LPAREN, "("),
+      new Token(TokenTypes.IDENT, "five"),
       new Token(TokenTypes.COMMA, ","),
+      new Token(TokenTypes.IDENT, "ten"),
+      new Token(TokenTypes.RPAREN, ")"),
       new Token(TokenTypes.SEMICOLON, ";"),
       new Token(TokenTypes.EOF, ""),
     };

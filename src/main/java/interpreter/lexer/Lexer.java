@@ -1,7 +1,6 @@
 package interpreter.lexer;
 
-import interpreter.token.Token;
-import interpreter.token.TokenTypes;
+import interpreter.token.*;
 
 public class Lexer {
   String input;
@@ -11,40 +10,95 @@ public class Lexer {
 
   public Lexer(String input) {
     this.input = input;
-    this.position = 0;
-    this.readPosition = 0;
-    this.readChar();
+    position = 0;
+    readPosition = 0;
+    readChar();
   }
 
   private void readChar() {
-    if (this.readPosition >= this.input.length()) {
-      this.ch = 0;
+    if (readPosition >= input.length()) {
+      ch = 0;
     }
     else {
-      this.ch = this.input.charAt(this.readPosition);
+      ch = input.charAt(readPosition);
     }
 
-    this.position = this.readPosition;
-    this.readPosition++;
+    position = readPosition;
+    readPosition++;
+  }
+
+  private boolean isLetter() {
+    return ch >= 'a' && ch <= 'z' || ch >= 'A' && ch <= 'Z';
+  }
+
+  private boolean isDigit() {
+    return ch >= '0' && ch <= '9';
+  }
+
+  private String readIdentifier() {
+    int start = position;
+
+    while (isLetter()) {
+      readChar();
+    }
+
+    return input.substring(start, position);
+  }
+
+  private String readNumber() {
+    int start = position;
+
+    while (isDigit()) {
+      readChar();
+    }
+
+    return input.substring(start, position);
+  }
+
+
+
+  private void skipWhitespace() {
+    while (ch == ' ' || ch == '\n' || ch == '\t' || ch == '\r') {
+      readChar();
+    }
+
+    return;
   }
 
   public Token nextToken() {
-    Token tok;
+    Token tok = null;
 
-    switch (this.ch) {
-      case '=' -> tok = new Token(TokenTypes.ASSIGN, String.valueOf(this.ch));
-      case ';' -> tok = new Token(TokenTypes.SEMICOLON, String.valueOf(this.ch));
-      case '(' -> tok = new Token(TokenTypes.LPAREN, String.valueOf(this.ch));
-      case ')' -> tok = new Token(TokenTypes.RPAREN, String.valueOf(this.ch));
-      case ',' -> tok = new Token(TokenTypes.COMMA, String.valueOf(this.ch));
-      case '+' -> tok = new Token(TokenTypes.PLUS, String.valueOf(this.ch));
-      case '{' -> tok = new Token(TokenTypes.LBRACE, String.valueOf(this.ch));
-      case '}' -> tok = new Token(TokenTypes.RBRACE, String.valueOf(this.ch));
+    skipWhitespace();
+
+    switch (ch) {
+      case '=' -> tok = new Token(TokenTypes.ASSIGN, String.valueOf(ch));
+      case ';' -> tok = new Token(TokenTypes.SEMICOLON, String.valueOf(ch));
+      case '(' -> tok = new Token(TokenTypes.LPAREN, String.valueOf(ch));
+      case ')' -> tok = new Token(TokenTypes.RPAREN, String.valueOf(ch));
+      case ',' -> tok = new Token(TokenTypes.COMMA, String.valueOf(ch));
+      case '+' -> tok = new Token(TokenTypes.PLUS, String.valueOf(ch));
+      case '{' -> tok = new Token(TokenTypes.LBRACE, String.valueOf(ch));
+      case '}' -> tok = new Token(TokenTypes.RBRACE, String.valueOf(ch));
       case 0 -> tok = new Token(TokenTypes.EOF, "");
-      default -> tok = new Token(TokenTypes.ILLEGAL, "");
+      default -> {
+        if (isLetter()) {
+          tok = new Token(null, readIdentifier());
+          tok.setTokenType(TokenIdent.lookupIdent(tok.getLiteral()));
+
+          return tok;
+        }
+        else if (isDigit()) {
+          tok = new Token(TokenTypes.INT, null);
+          tok.setLiteral(readNumber());
+          return tok;
+        }
+        else {
+          tok = new Token(TokenTypes.ILLEGAL, String.valueOf(ch));
+        }
+      }
     }
 
-    this.readChar();
+    readChar();
     return tok;
   }
 }
