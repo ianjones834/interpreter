@@ -9,6 +9,16 @@ public enum TokenTypes {
 
   ASSIGN,
   PLUS,
+  MINUS,
+  BANG,
+  ASTERISK,
+  SLASH,
+
+  LT,
+  GT,
+
+  EQ,
+  NOT_EQ,
 
   COMMA,
   SEMICOLON,
@@ -20,4 +30,10 @@ public enum TokenTypes {
 
   FUNCTION,
   LET,
+  TRUE,
+  FALSE,
+  IF,
+  ELSE,
+  RETURN,
+
 }

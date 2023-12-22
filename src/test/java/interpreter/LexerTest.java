@@ -24,6 +24,18 @@ public class LexerTest {
     };
 
     let result = add(five, ten);
+
+    !-/*5;
+    5 < 10 > 5;
+
+    if (5 < 10) {
+      return true;
+    } else {
+      return false;
+    }
+
+    10 == 10;
+    10 != 9;
   """;
 
     Token[] expectedTokens = {
@@ -63,6 +75,43 @@ public class LexerTest {
       new Token(TokenTypes.IDENT, "ten"),
       new Token(TokenTypes.RPAREN, ")"),
       new Token(TokenTypes.SEMICOLON, ";"),
+      new Token(TokenTypes.BANG, "!"),
+      new Token(TokenTypes.MINUS, "-"),
+      new Token(TokenTypes.SLASH, "/"),
+      new Token(TokenTypes.ASTERISK, "*"),
+      new Token(TokenTypes.INT, "5"),
+      new Token(TokenTypes.SEMICOLON, ";"),
+      new Token(TokenTypes.INT, "5"),
+      new Token(TokenTypes.LT, "<"),
+      new Token(TokenTypes.INT, "10"),
+      new Token(TokenTypes.GT, ">"),
+      new Token(TokenTypes.INT, "5"),
+      new Token(TokenTypes.SEMICOLON, ";"),
+      new Token(TokenTypes.IF, "if"),
+      new Token(TokenTypes.LPAREN, "("),
+      new Token(TokenTypes.INT, "5"),
+      new Token(TokenTypes.LT, "<"),
+      new Token(TokenTypes.INT, "10"),
+      new Token(TokenTypes.RPAREN, ")"),
+      new Token(TokenTypes.LBRACE, "{"),
+      new Token(TokenTypes.RETURN, "return"),
+      new Token(TokenTypes.TRUE, "true"),
+      new Token(TokenTypes.SEMICOLON, ";"),
+      new Token(TokenTypes.RBRACE, "}"),
+      new Token(TokenTypes.ELSE, "else"),
+      new Token(TokenTypes.LBRACE, "{"),
+      new Token(TokenTypes.RETURN, "return"),
+      new Token(TokenTypes.FALSE, "false"),
+      new Token(TokenTypes.SEMICOLON, ";"),
+      new Token(TokenTypes.RBRACE, "}"),
+      new Token(TokenTypes.INT, "10"),
+      new Token(TokenTypes.EQ, "=="),
+      new Token(TokenTypes.INT, "10"),
+      new Token(TokenTypes.SEMICOLON, ";"),
+      new Token(TokenTypes.INT, "10"),
+      new Token(TokenTypes.NOT_EQ, "!="),
+      new Token(TokenTypes.INT, "9"),
+      new Token(TokenTypes.SEMICOLON, ";"),
       new Token(TokenTypes.EOF, ""),
     };
 
@@ -91,7 +140,20 @@ public class LexerTest {
       x + y;
     };
 
-    let result = add(five, ten);""";
+    let result = add(five, ten);
+
+    !-/*5;
+    5 < 10 > 5;
+
+    if (5 < 10) {
+      return true;
+    } else {
+      return false;
+    }
+
+    10 == 10;
+    10 != 9;
+  """;
 
     Token[] expectedTokens = {
       new Token(TokenTypes.LET, "let"),
@@ -129,6 +191,43 @@ public class LexerTest {
       new Token(TokenTypes.COMMA, ","),
       new Token(TokenTypes.IDENT, "ten"),
       new Token(TokenTypes.RPAREN, ")"),
+      new Token(TokenTypes.SEMICOLON, ";"),
+      new Token(TokenTypes.BANG, "!"),
+      new Token(TokenTypes.MINUS, "-"),
+      new Token(TokenTypes.SLASH, "/"),
+      new Token(TokenTypes.ASTERISK, "*"),
+      new Token(TokenTypes.INT, "5"),
+      new Token(TokenTypes.SEMICOLON, ";"),
+      new Token(TokenTypes.INT, "5"),
+      new Token(TokenTypes.LT, "<"),
+      new Token(TokenTypes.INT, "10"),
+      new Token(TokenTypes.GT, ">"),
+      new Token(TokenTypes.INT, "5"),
+      new Token(TokenTypes.SEMICOLON, ";"),
+      new Token(TokenTypes.IF, "if"),
+      new Token(TokenTypes.LPAREN, "("),
+      new Token(TokenTypes.INT, "5"),
+      new Token(TokenTypes.LT, "<"),
+      new Token(TokenTypes.INT, "10"),
+      new Token(TokenTypes.RPAREN, ")"),
+      new Token(TokenTypes.LBRACE, "{"),
+      new Token(TokenTypes.RETURN, "return"),
+      new Token(TokenTypes.TRUE, "true"),
+      new Token(TokenTypes.SEMICOLON, ";"),
+      new Token(TokenTypes.RBRACE, "}"),
+      new Token(TokenTypes.ELSE, "else"),
+      new Token(TokenTypes.LBRACE, "{"),
+      new Token(TokenTypes.RETURN, "return"),
+      new Token(TokenTypes.FALSE, "false"),
+      new Token(TokenTypes.SEMICOLON, ";"),
+      new Token(TokenTypes.RBRACE, "}"),
+      new Token(TokenTypes.INT, "10"),
+      new Token(TokenTypes.EQ, "=="),
+      new Token(TokenTypes.INT, "10"),
+      new Token(TokenTypes.SEMICOLON, ";"),
+      new Token(TokenTypes.INT, "10"),
+      new Token(TokenTypes.NOT_EQ, "!="),
+      new Token(TokenTypes.INT, "9"),
       new Token(TokenTypes.SEMICOLON, ";"),
       new Token(TokenTypes.EOF, ""),
     };

@@ -55,8 +55,6 @@ public class Lexer {
     return input.substring(start, position);
   }
 
-
-
   private void skipWhitespace() {
     while (ch == ' ' || ch == '\n' || ch == '\t' || ch == '\r') {
       readChar();
@@ -65,20 +63,58 @@ public class Lexer {
     return;
   }
 
+  private char peekChar() {
+    if (readPosition >= input.length()) {
+      return 0;
+    }
+    else {
+      return input.charAt(readPosition);
+    }
+  }
+
   public Token nextToken() {
     Token tok = null;
 
     skipWhitespace();
 
     switch (ch) {
-      case '=' -> tok = new Token(TokenTypes.ASSIGN, String.valueOf(ch));
+      case '=' -> {
+        if (peekChar() == '=') {
+          char tmp = ch;
+          readChar();
+          char[] literal = {tmp, ch};
+          tok = new Token(TokenTypes.EQ, new String(literal));
+        }
+        else {
+          tok = new Token(TokenTypes.ASSIGN, String.valueOf(ch));
+        }
+      }
+      case '+' -> tok = new Token(TokenTypes.PLUS, String.valueOf(ch));
+      case '-' -> tok = new Token(TokenTypes.MINUS, String.valueOf(ch));
+      case '!' -> {
+        if (peekChar() == '=') {
+          char tmp = ch;
+          readChar();
+          char[] literal = {tmp, ch};
+          tok = new Token(TokenTypes.NOT_EQ, new String(literal));
+        }
+        else {
+          tok = new Token(TokenTypes.BANG, String.valueOf(ch));
+        }
+      }
+      case '/' -> tok = new Token(TokenTypes.SLASH, String.valueOf(ch));
+      case '*' -> tok = new Token(TokenTypes.ASTERISK, String.valueOf(ch));
+      case '<' -> tok = new Token(TokenTypes.LT, String.valueOf(ch));
+      case '>' -> tok = new Token(TokenTypes.GT, String.valueOf(ch));
+
       case ';' -> tok = new Token(TokenTypes.SEMICOLON, String.valueOf(ch));
+      case ',' -> tok = new Token(TokenTypes.COMMA, String.valueOf(ch));
+
       case '(' -> tok = new Token(TokenTypes.LPAREN, String.valueOf(ch));
       case ')' -> tok = new Token(TokenTypes.RPAREN, String.valueOf(ch));
-      case ',' -> tok = new Token(TokenTypes.COMMA, String.valueOf(ch));
-      case '+' -> tok = new Token(TokenTypes.PLUS, String.valueOf(ch));
       case '{' -> tok = new Token(TokenTypes.LBRACE, String.valueOf(ch));
       case '}' -> tok = new Token(TokenTypes.RBRACE, String.valueOf(ch));
+
       case 0 -> tok = new Token(TokenTypes.EOF, "");
       default -> {
         if (isLetter()) {
