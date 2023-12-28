@@ -3,10 +3,10 @@ package interpreter.lexer;
 import interpreter.token.*;
 
 public class Lexer {
-  String input;
-  int position;
-  int readPosition;
-  char ch;
+  private String input;
+  private int position;
+  private int readPosition;
+  private char ch;
 
   public Lexer(String input) {
     this.input = input;

@@ -1,8 +1,8 @@
 package interpreter.token;
 
 public class Token {
-  TokenTypes tokenType;
-  String literal;
+  private TokenTypes tokenType;
+  private String literal;
 
   public Token(TokenTypes tokenType, String literal) {
     this.tokenType = tokenType;
