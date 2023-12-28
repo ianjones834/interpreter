@@ -16,7 +16,7 @@ public class Repl {
       System.out.print(PROMPT);
       String nextLine = scanner.nextLine();
       if (nextLine.contentEquals("exit")) {
-        return;
+        break;
       }
 
       Lexer l = new Lexer(nextLine);
@@ -25,5 +25,7 @@ public class Repl {
         System.out.printf("{Type:%s Literal:%s}\n", tok.getTokenType(), tok.getLiteral());
       }
     }
+
+    scanner.close();
   }
 }
